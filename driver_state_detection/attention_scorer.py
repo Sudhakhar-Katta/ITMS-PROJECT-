@@ -106,6 +106,13 @@ class AttentionScorer:
         self.eye_closure_counter = 0
         self.prev_time = t_now
 
+    def reset_active_continuity(self, t_now):
+        """Prevent missing-face time from extending active legacy timers."""
+        self.last_eval_time = t_now
+        self.closure_time = 0.0
+        self.not_look_ahead_time = 0.0
+        self.distracted_time = 0.0
+
     def _update_metric(self, metric_value, condition, elapsed):
         """
         Update a given metric timer based on the condition.
