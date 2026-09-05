@@ -41,6 +41,12 @@ def get_args():
     )
 
     parser.add_argument(
+        "--video_time",
+        action="store_true",
+        help="Use source video timestamps instead of wall-clock time.",
+    )
+
+    parser.add_argument(
         "--camera_params",
         type=str,
         default="",

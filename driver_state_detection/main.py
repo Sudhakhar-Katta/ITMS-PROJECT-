@@ -123,7 +123,7 @@ def main():
 
     prev_time = time.perf_counter()
     fps = 0.0
-    t_now = time.perf_counter()
+    t_now = 0.0 if args.video_time else time.perf_counter()
 
     Scorer = AttScorer(
         t_now=t_now,
@@ -205,6 +205,8 @@ def main():
     if not cap.isOpened():
         print(f"Cannot open camera/video source: {source}")
         return
+
+    source_fps = float(cap.get(cv2.CAP_PROP_FPS) or 0.0)
 
     save_csv_parent = os.path.dirname(args.save_csv)
 
@@ -296,6 +298,9 @@ def main():
                 break
 
             frame_count += 1
+
+            if args.video_time and not isinstance(source, int) and source_fps > 0:
+                t_now = (frame_count - 1) / source_fps
 
             if source == 0:
                 frame = cv2.flip(frame, 1)
@@ -652,6 +657,7 @@ def main():
                 for alert in alerts:
                     print("ALERT:", alert)
                     events_writer.writerow(build_event_row(video_name, alert))
+                    events_csv_file.flush()
                     event_counts[alert.get("event", "unknown")] += 1
 
                 csv_writer.writerow(
@@ -700,6 +706,8 @@ def main():
                         "events": "|".join([a["event"] for a in alerts]),
                     }
                 )
+                if frame_count % 10 == 0:
+                    csv_file.flush()
 
             else:
                 if face_missing_start is None:
@@ -733,6 +741,8 @@ def main():
                         "events": "",
                     }
                 )
+                if frame_count % 10 == 0:
+                    csv_file.flush()
 
             e2 = cv2.getTickCount()
             proc_time_frame_ms = ((e2 - e1) / cv2.getTickFrequency()) * 1000

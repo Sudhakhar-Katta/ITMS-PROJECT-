@@ -570,6 +570,45 @@ python -c "import cv2, mediapipe, numpy; print('ok')"
 
 ## 8. Running the System
 
+### 8.0 Run Upload-Based Video Analysis
+
+Use this when you want to upload a video from a browser and watch the full
+OpenCV + MediaPipe driver-state pipeline process it live without opening an
+OpenCV preview window.
+
+```powershell
+cd driver_state_detection
+C:\Users\satya\AppData\Local\Programs\Python\Python312\python.exe upload_server.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8090
+```
+
+Upload an MP4, AVI, MOV, MKV, or WEBM file. The server saves the video, starts
+`main.py --no_display` in the background, and immediately opens a live job page
+that updates frame progress, runtime status, and detected alert events while
+the analysis is still running. It also shows live frame-level detection
+instances for active states such as eyes closed, tired, asleep, looking away,
+distracted, drowsiness, and yawning side by side with the uploaded video.
+Click a detection or event row to jump the video to that timestamp. The page
+also includes links for:
+
+- `predictions.csv` frame-level analysis
+- `events.csv` event-level alerts
+- `detection_instances.csv` filtered rows where at least one detector state is active
+- `stdout.log`
+- `stderr.log`
+
+Generated uploads and analysis outputs are written under:
+
+```text
+driver_state_detection/uploads/
+driver_state_detection/analysis_results/
+```
+
 ### 8.1 Run Webcam
 
 ```powershell

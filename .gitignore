@@ -1,6 +1,12 @@
 #Other files
 *.ini
 camera_calibration/calib_photos/*
+driver_state_detection/uploads/
+driver_state_detection/analysis_results/
+driver_state_detection/events.csv
+driver_state_detection/*_stdout.log
+driver_state_detection/*_stderr.log
+driver_state_detection/*_live.csv
 #GITIGNORE TEMPLATE COPIED FROM GITHUB GITIGNORE REPO + INTELLIJ GITIGNORE REPO
 
 # Byte-compiled / optimized / DLL files
