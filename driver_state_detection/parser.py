@@ -35,6 +35,20 @@ def get_args():
     )
 
     parser.add_argument(
+        "--output_video",
+        type=str,
+        default="",
+        help="Path to save a fully annotated output video. Leave empty to disable video writing.",
+    )
+
+    parser.add_argument(
+        "--save_video",
+        type=str,
+        default="",
+        help="Legacy alias for --output_video.",
+    )
+
+    parser.add_argument(
         "--no_display",
         action="store_true",
         help="Run without showing OpenCV window.",
@@ -230,4 +244,7 @@ def get_args():
     )
 
     args = parser.parse_args()
+    if not args.output_video and args.save_video:
+        args.output_video = args.save_video
+    args.save_video = args.output_video
     return args

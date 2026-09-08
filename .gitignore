@@ -1,5 +1,11 @@
 #Other files
 *.ini
+*.pyc
+.cache/
+logs/
+outputs/
+venv/
+.venv/
 camera_calibration/calib_photos/*
 driver_state_detection/uploads/
 driver_state_detection/analysis_results/

@@ -470,6 +470,7 @@ Main runtime script. Handles:
 - State monitor updates
 - UI display
 - CSV logging
+- Annotated video export
 
 ### parser.py
 
@@ -478,6 +479,7 @@ Defines command-line arguments:
 - `--source`
 - `--video_name`
 - `--save_csv`
+- `--save_video` / `--output_video`
 - `--no_display`
 - `--ear_thresh`
 - `--ear_time_thresh`
@@ -636,6 +638,17 @@ python main.py --source 1 --video_name "webcam" --save_csv "C:\Users\valla\ITMS-
 ```powershell
 python main.py --source "C:\path\to\video.mp4" --video_name "video.mp4" --save_csv "C:\Users\valla\ITMS-SYSTEM1\datasets\test_eval\predictions\video_predictions.csv" --ear_thresh 0.22 --ear_time_thresh 3 --yawn_mar_thresh 0.55 --yawn_time_thresh 1.2
 ```
+
+Save a fully annotated output video:
+
+```powershell
+python main.py --source "C:\path\to\video.mp4" --video_name "video.mp4" --save_csv "C:\Users\valla\ITMS-SYSTEM1\datasets\test_eval\predictions\video_predictions.csv" --save_video "C:\Users\valla\ITMS-SYSTEM1\datasets\test_eval\outputs\video_annotated.mp4" --video_time --no_display --ear_thresh 0.22 --ear_time_thresh 3 --yawn_mar_thresh 0.55 --yawn_time_thresh 1.2
+```
+
+The exported video contains the same frame overlays used by the live detector:
+EAR, MAR, PERCLOS, gaze reliability/mode, head pose, tired/asleep, looking-away,
+distraction, drowsiness, yawning, and face-missing annotations. MP4 outputs use
+the `mp4v` codec; AVI outputs use `XVID`.
 
 Run without display:
 
